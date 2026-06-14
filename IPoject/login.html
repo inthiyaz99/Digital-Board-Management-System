@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body{background:#020617;color:#fff;font-family:Poppins}
+        .box{width:300px;margin:120px auto;padding:30px;background:#020617;border-radius:12px;box-shadow:0 0 20px #6366f1}
+        input,button{width:100%;padding:10px;margin:10px 0}
+        button{background:#22d3ee;border:none;font-weight:bold}
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Login</h2>
+    <input id="user" placeholder="Username">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<script>
+function login(){
+    let u=user.value,p=pass.value;
+    if(u&&p){
+        localStorage.setItem("loggedIn","true");
+        alert("Login successful");
+        location.href="index.html";
+    }else alert("Fill all fields");
+}
+</script>
+
+</body>
+</html>

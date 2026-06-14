@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Notice</title>
+    <style>
+        body{background:#020617;color:#fff;font-family:Poppins}
+        .box{width:400px;margin:80px auto;padding:30px;background:#020617;border-radius:12px;box-shadow:0 0 20px #22d3ee}
+        input,select,textarea,button{width:100%;padding:10px;margin:10px 0}
+        button{background:#6366f1;border:none;color:white}
+    </style>
+</head>
+<body>
+
+<script>
+if(localStorage.getItem("loggedIn")!=="true"){
+    alert("Please login first");
+    location.href="login.html";
+}
+</script>
+
+<div class="box">
+    <h2>Add Notice</h2>
+    <input id="title" placeholder="Event / Holiday Name">
+    <select id="type">
+        <option>Event</option>
+        <option>Holiday</option>
+    </select>
+    <input type="date" id="date">
+    <textarea id="desc" placeholder="Description"></textarea>
+    <button onclick="addNotice()">Publish</button>
+</div>
+
+<script>
+function addNotice(){
+    let notices=JSON.parse(localStorage.getItem("notices"))||[];
+    notices.push({
+        title:title.value,
+        type:type.value,
+        date:date.value,
+        desc:desc.value
+    });
+    localStorage.setItem("notices",JSON.stringify(notices));
+    alert("Notice Published");
+    location.href="index.html";
+}
+</script>
+
+</body>
+</html>

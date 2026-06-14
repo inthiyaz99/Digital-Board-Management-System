@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Notice</title>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #020617);
+            color: #e5e7eb;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background: #020617;
+            padding: 16px 0;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .navbar a {
+            color: #cbd5f5;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .navbar i {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 6px;
+            color: #22d3ee;
+        }
+
+        .box {
+            width: 420px;
+            max-width: 90%;
+            margin: 60px auto;
+            background: #020617;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 0 40px rgba(99,102,241,0.25);
+        }
+
+        .box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #e0e7ff;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border: 1px solid #1f2937;
+            background: #020617;
+            color: #e5e7eb;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #6366f1, #22d3ee);
+            color: #020617;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+</nav>
+
+<!-- ADD NOTICE FORM -->
+<div class="box">
+    <h2>Add Notice</h2>
+
+    <!-- PURPOSE -->
+    <select id="purpose">
+        <option value="">Select Purpose</option>
+        <option>Event</option>
+        <option>Holiday</option>
+        <option>Exam</option>
+        <option>General</option>
+    </select>
+
+    <!-- EVENT / HOLIDAY NAME -->
+    <input type="text" id="title" placeholder="Event / Holiday Name">
+
+    <!-- DATE -->
+    <input type="date" id="date">
+
+    <!-- DESCRIPTION -->
+    <textarea id="desc" placeholder="Description (optional)"></textarea>
+
+    <button onclick="addNotice()">Publish Notice</button>
+</div>
+
+<script>
+    // CHECK LOGIN
+    if (!localStorage.getItem("loggedIn")) {
+        alert("Please login first");
+        window.location.href = "login.html";
+    }
+
+    function addNotice() {
+        let purpose = document.getElementById("purpose").value;
+        let title = document.getElementById("title").value;
+        let date = document.getElementById("date").value;
+        let desc = document.getElementById("desc").value;
+
+        if (!purpose || !title || !date) {
+            alert("Please fill all required fields");
+            return;
+        }
+
+        let notices = JSON.parse(localStorage.getItem("notices")) || [];
+
+        notices.push({
+            purpose,
+            title,
+            date,
+            desc
+        });
+
+        localStorage.setItem("notices", JSON.stringify(notices));
+        alert("Notice Added Successfully");
+        window.location.href = "index.html";
+    }
+
+    function logout() {
+        localStorage.clear();
+        alert("Logged out");
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>

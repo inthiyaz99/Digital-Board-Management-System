@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Board</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+        body{background:hsl(180, 6%, 6%);color:#e5e7eb}
+        .navbar{display:flex;justify-content:space-around;padding:15px;background:#020617;border-bottom:1px solid #1f2937}
+        .navbar a{text-decoration:none;color:#cbd5f5;text-align:center}
+        .navbar i{font-size:26px;color:#22d3ee;display:block}
+        h1{text-align:center;margin:25px}
+        .notice{background:#0f1111;padding:20px;margin:15px auto;width:80%;border-radius:12px;box-shadow:0 0 20px rgba(99,102,241,.2)}
+        .notice h3{color:#38bdf8}
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+    <a href="about.html"><i class="fa-solid fa-circle-info"></i>About</a>
+    <a href="add.html"><i class="fa-solid fa-plus"></i>Add Notice</a>
+    <a href="login.html"><i class="fa-solid fa-user"></i>Login</a>
+    <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+</nav>
+
+<h1>📢 Digital Board Notices</h1>
+
+<div id="notices"></div>
+
+<script>
+function loadNotices(){
+    let notices=JSON.parse(localStorage.getItem("notices"))||[];
+    let box=document.getElementById("notices");
+    box.innerHTML="";
+    if(notices.length==0){
+        box.innerHTML="<p style='text-align:center'>No notices yet</p>";
+        return;
+    }
+    notices.forEach(n=>{
+        box.innerHTML+=`
+        <div class="notice">
+            <h3>${n.title}</h3>
+            <p><b>${n.type}</b> | ${n.date}</p>
+            <p>${n.desc}</p>
+        </div>`;
+    });
+}
+function logout(){
+    localStorage.removeItem("loggedIn");
+    alert("Logged out");
+}
+loadNotices();
+</script>
+
+</body>
+</html>

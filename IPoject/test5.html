@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Board Management System</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #020617);
+            color: #e5e7eb;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background: #020617;
+            padding: 16px 0;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .navbar a {
+            color: #cbd5f5;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .navbar i {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 6px;
+            color: #22d3ee;
+        }
+
+        .title {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 30px;
+            color: #e0e7ff;
+        }
+
+        /* NOTICE CARD */
+        .notices {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .notice {
+            background: #020617;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 0 25px rgba(99,102,241,0.2);
+        }
+
+        .notice h3 {
+            color: #38bdf8;
+            margin-bottom: 6px;
+        }
+
+        .notice span {
+            font-size: 14px;
+            color: #a5b4fc;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="about.html"><i class="fa-solid fa-circle-info"></i><span>About</span></a>
+    <a href="add.html"><i class="fa-solid fa-plus"></i><span>Add Notice</span></a>
+    <a href="login.html"><i class="fa-solid fa-user"></i><span>Login</span></a>
+    <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+</nav>
+
+<h1 class="title">📢 Digital Board Notices</h1>
+
+<div id="noticeList" class="notices"></div>
+
+<script>
+    function loadNotices() {
+        let notices = JSON.parse(localStorage.getItem("notices")) || [];
+        let list = document.getElementById("noticeList");
+
+        if (notices.length === 0) {
+            list.innerHTML = "<p style='text-align:center;'>No notices published yet</p>";
+            return;
+        }
+
+        list.innerHTML = "";
+
+        notices.forEach(n => {
+            list.innerHTML += `
+                <div class="notice">
+                    <h3>${n.title}</h3>
+                    <span>
+                        <i class="fa-solid fa-tag"></i> ${n.purpose}
+                        &nbsp; | &nbsp;
+                        <i class="fa-solid fa-calendar-days"></i> ${n.date}
+                    </span>
+                    <p style="margin-top:10px;">${n.desc || ""}</p>
+                </div>
+            `;
+        });
+    }
+
+    function logout() {
+        localStorage.clear();
+        alert("Logged out successfully");
+        window.location.href = "index.html";
+    }
+
+    loadNotices();
+</script>
+
+</body>
+</html>
